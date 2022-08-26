@@ -1,5 +1,6 @@
 let chatcount = 0;
 let newswitch = 1;
+let showinput = 0;
 
 $(document).ready(() => {
     const websocket = new WebSocket("wss://web.lite24.net/ws/chat");
@@ -79,7 +80,7 @@ $(document).ready(() => {
         }
 
         if (check()) {
-            if(newswitch===0){
+            if (newswitch === 0) {
                 document.querySelector("#alerter").className = "chatalertdap";
                 chatcount = 0;
                 let nl = document.querySelector('.newline');
@@ -94,12 +95,25 @@ $(document).ready(() => {
             window.scrollTo(0, document.body.scrollHeight);
             document.querySelector("#alerter").className = "chatalertdap";
             chatcount = 0;
-            if(newswitch===0) {
+            if (newswitch === 0) {
                 let nl = document.querySelector('.newline');
                 nl.remove();
             }
             newswitch = 1;
         }
     }
-})
 
+    document.querySelector('#inputbutton').onclick = function () {
+        if (showinput === 0) {
+            document.querySelector('#inputlabel').animate([{width: undefined},{width: '90%'}], {duration:500, fill: "forwards"});
+            document.querySelector('#inputbutton').animate([{boxShadow: '0 0 0 white'}, {boxShadow: '0 0 40px white'}], {duration:100, fill: "forwards"});
+            showinput = 1;
+            console.log('show');
+        } else if (showinput === 1) {
+            document.querySelector('#inputlabel').animate([{width: undefined}, {width: '40px'}], {duration:500, fill: "forwards"});
+            document.querySelector('#inputbutton').animate([{boxShadow: '0 0 40px white'}, {boxShadow: '0 0 0 white'}], {duration:500, fill: "forwards"});
+            showinput = 0;
+            console.log('close');
+        }
+    }
+})
