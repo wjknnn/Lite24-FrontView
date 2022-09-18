@@ -92,7 +92,7 @@ $(document).ready(() => {
 
     document.onkeydown = function () {
         if (event.keyCode === 27) {
-            window.scrollTo(0, document.body.scrollHeight);
+            window.scrollTo({left: 0, top: document.body.scrollHeight, behavior: "smooth"});
             document.querySelector("#alerter").className = "chatalertdap";
             chatcount = 0;
             if (newswitch === 0) {
@@ -103,17 +103,54 @@ $(document).ready(() => {
         }
     }
 
+    function calc_(v) {
+        return Math.sqrt(16-Math.pow(v-4, 2))*125;
+    }
+
     document.querySelector('#inputbutton').onclick = function () {
         if (showinput === 0) {
-            document.querySelector('#inputlabel').animate([{width: undefined},{width: '90%'}], {duration:500, fill: "forwards"});
-            document.querySelector('#inputbutton').animate([{boxShadow: '0 0 0 white'}, {boxShadow: '0 0 40px white'}], {duration:100, fill: "forwards"});
+            document.querySelector('#inputlabel').animate([{width: undefined}, {width: '90%'}], {
+                duration: 500,
+                fill: "forwards",
+                easing: 'ease-in-out'
+            });
+            document.querySelector('#inputbutton').animate([{boxShadow: '0 0 0 white'}, {boxShadow: '0 0 40px white'}], {
+                duration: 100,
+                fill: "forwards",
+                easing: 'ease-in-out'
+            });
+            document.querySelector('body').animate([{paddingBottom: undefined}, {paddingBottom: '80px'}], {
+                duration: 500,
+                fill: "forwards",
+                easing: 'ease-in-out'
+            });
             showinput = 1;
             console.log('show');
+            console.log(document.querySelector('body').scrollHeight);
+
+            for (let i = 0; i < 500; i++) {
+                setTimeout(function() {
+                    document.querySelector('body').style.paddingBottom = `${Math.floor(calc_(i))}px`;
+                    window.scrollTo({left: 0, top: document.body.scrollHeight, behavior: "smooth"});
+                }, i);
+            }
         } else if (showinput === 1) {
-            document.querySelector('#inputlabel').animate([{width: undefined}, {width: '40px'}], {duration:500, fill: "forwards"});
-            document.querySelector('#inputbutton').animate([{boxShadow: '0 0 40px white'}, {boxShadow: '0 0 0 white'}], {duration:500, fill: "forwards"});
+            document.querySelector('#inputlabel').animate([{width: undefined}, {width: '40px'}], {
+                duration: 500,
+                fill: "forwards",
+                easing: 'ease-in-out'
+            });
+            document.querySelector('#inputbutton').animate([{boxShadow: '0 0 40px white'}, {boxShadow: '0 0 0 white'}], {
+                duration: 500,
+                fill: "forwards",
+                easing: 'ease-in-out'
+            });
+            document.querySelector('body').animate([{paddingBottom: undefined}, {paddingBottom: '0'}], {
+                duration: 500,
+                fill: "forwards",
+                easing: 'ease-in-out'
+            });
             showinput = 0;
-            console.log('close');
         }
     }
 })

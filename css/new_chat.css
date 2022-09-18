@@ -91,7 +91,7 @@ body {
     /*display: block;*/
     text-align: left;
     background-color: #41464b;
-    padding-bottom: 80px;
+    padding-bottom: 0;
 }
 
 header {
@@ -225,7 +225,7 @@ th {
 
 .roleflex{
     height: 40px;
-    margin: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: start;
     align-items: center;
